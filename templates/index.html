@@ -22,7 +22,7 @@
             <h2>{{ question.text }}</h2>
             <ul class="list-unstyled">
             {% for answer in COPY[question.key] %}
-                <input type="radio" name="{{question.key}}" value="{{answer.text}}"> {{answer.text}}<br>
+                <input type="radio" name="{{question.key}}" value="{{answer.category}}"> {{answer.text}}<br>
             {% endfor %}
             </ul>
         </div>
