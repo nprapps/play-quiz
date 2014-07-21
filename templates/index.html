@@ -16,18 +16,18 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="questions">
+    <form class="questions">
         {% for question in COPY.questions %}
         <div class="question">
             <h2>{{ question.text }}</h2>
             <ul class="list-unstyled">
             {% for answer in COPY[question.key] %}
-                <li>{{ answer.text }}</li>
+                <input type="radio" name="{{question.key}}" value="{{answer.text}}"> {{answer.text}}<br>
             {% endfor %}
             </ul>
         </div>
         {% endfor %}
-    </div>
+    </form>
 </div>
 {% endblock %}
 
