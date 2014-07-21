@@ -16,18 +16,23 @@
 
 {% block content %}
 <div class="container-fluid">
-    <form class="questions">
+    <div class="questions">
         {% for question in COPY.questions %}
-        <div class="question">
+        <div class="question form-group">
             <h2>{{ question.text }}</h2>
-            <ul class="list-unstyled">
+            <ul class="answers list-unstyled">
             {% for answer in COPY[question.key] %}
-                <input type="radio" name="{{question.key}}" value="{{answer.category}}"> {{answer.text}}<br>
+                <div class="radio">
+                    <label>
+                        <input class="answer" type="radio" name="{{question.key}}" value="{{answer.category}}"> {{answer.text}}
+                    </label>
+                </div>
             {% endfor %}
             </ul>
         </div>
         {% endfor %}
-    </form>
+    </div>
+    <button class="btn btn-primary submit-quiz">What game should I play?</button>
 </div>
 {% endblock %}
 
