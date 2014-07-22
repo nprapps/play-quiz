@@ -6,15 +6,14 @@ var $questions = null;
 var $results = null;
 var $firstChoice = null
 var $secondChoice = null;
-var $error = null;
-
+var $answers = null;
 // Global state
 var firstShareLoad = true;
 var category = null;
 var primaryCategory = null;
 var secondaryCategory = null;
 var games = null;
-var answerChecked = false;
+var answersChecked = 0;
 
 var categories = {
     'creativity': 0,
@@ -37,58 +36,66 @@ var onDocumentLoad = function(e) {
     $firstChoice = $('.first-choice');
     $secondChoice = $('.second-choice');
     $error = $('.error');
+    $answers = $('.answer');
 
     // Bind events
     $shareModal.on('shown.bs.modal', onShareModalShown);
     $shareModal.on('hidden.bs.modal', onShareModalHidden);
     $submitQuiz.on('click', calculateResult);
+    $answers.on('click', checkQuizCompletion);
 
     getCommentCount(showCommentCount);
 }
 
-var calculateResult = function() {
-    for(i=0; i<$questions.length; i++) {
-        findAnswer($questions[i]);
+var checkQuizCompletion = function() {
+    answersChecked = 0;
 
-        if (answerChecked == false) {
-            $error.show();
-        }
+    for (i = 0; i < $questions.length; i++) {
+        findAnswer($questions[i])
+    }
+
+    if (answersChecked == $questions.length) {
+        $submitQuiz.removeAttr("disabled");
+    }
+}
+
+var calculateResult = function() {
+    answersChecked = 0;
+
+    for (i=0; i<$questions.length; i++) {
+        findAnswer($questions[i]);
 
         categories[category]++;
     };
 
-    if (answerChecked == true) {
-        var tuples = _.pairs(categories);
+    var tuples = _.pairs(categories);
 
-        // sort the tuple from greatest to least
-        tuples = _.sortBy(tuples, function(category) { return category[1] }).reverse();
+    // sort the tuple from greatest to least
+    tuples = _.sortBy(tuples, function(category) { return category[1] }).reverse();
 
-        // the primary category is the first in the list, the secondary is the second.
-        primaryCategory = tuples[0][0]
+    // the primary category is the first in the list, the secondary is the second.
+    primaryCategory = tuples[0][0]
 
-        // if answers are all one category
-        if (tuples[1][1] < 1) {
-            secondaryCategory = primaryCategory;
-        }
-        else {
-            secondaryCategory = tuples[1][0];
-        }
-
-        // get both our first and second choice
-        printResult(primaryCategory, secondaryCategory, $firstChoice);
-        printResult(secondaryCategory, primaryCategory, $secondChoice);
+    // if answers are all one category
+    if (tuples[1][1] < 1) {
+        secondaryCategory = primaryCategory;
     }
+    else {
+        secondaryCategory = tuples[1][0];
+    }
+
+    // get both our first and second choice
+    printResult(primaryCategory, secondaryCategory, $firstChoice);
+    printResult(secondaryCategory, primaryCategory, $secondChoice);
 }
 
 var findAnswer = function(question) {
     var $answers = $(question).find('.answer');
 
-    answerChecked = false;
-
     _.each($answers, function(answer) {
         if ($(answer).is(':checked')) {
             category = $(answer).attr('value');
-            answerChecked = true;
+            answersChecked++;
         }
     });
 }
