@@ -138,7 +138,20 @@ a.btn.btn-blue {
 }
 
 .submit {
-	.make-md-column(12);
+	.make-row();
+
+	button {
+		.make-md-column(2);
+	}
+}
+
+.error {
+	display: none;
+	.make-row();
+
+	.alert {
+		.make-md-column(12);
+	}
 }
 
 .results {

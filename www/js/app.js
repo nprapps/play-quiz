@@ -6,6 +6,7 @@ var $questions = null;
 var $results = null;
 var $firstChoice = null
 var $secondChoice = null;
+var $error = null;
 
 // Global state
 var firstShareLoad = true;
@@ -35,6 +36,7 @@ var onDocumentLoad = function(e) {
     $results = $('.results');
     $firstChoice = $('.first-choice');
     $secondChoice = $('.second-choice');
+    $error = $('.error');
 
     // Bind events
     $shareModal.on('shown.bs.modal', onShareModalShown);
@@ -49,8 +51,7 @@ var calculateResult = function() {
         findAnswer($questions[i]);
 
         if (answerChecked == false) {
-            alert('finish the quiz');
-            return false;
+            $error.show();
         }
 
         categories[category]++;
