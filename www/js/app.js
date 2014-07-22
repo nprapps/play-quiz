@@ -13,6 +13,7 @@ var category = null;
 var primaryCategory = null;
 var secondaryCategory = null;
 var games = null;
+var answerChecked = false;
 
 var categories = {
     'creativity': 0,
@@ -44,51 +45,63 @@ var onDocumentLoad = function(e) {
 }
 
 var calculateResult = function() {
-    _.each($questions, function(question) {
-        findAnswer(question);
+    for(i=0; i<$questions.length; i++) {
+        findAnswer($questions[i]);
+
+        if (answerChecked == false) {
+            alert('finish the quiz');
+            return false;
+        }
 
         categories[category]++;
-    });
+    };
 
-    // take the categories object and make sort-of tuples in JavaScript lol.
-    var tuples = [];
+    if (answerChecked == true) {
+        var tuples = [];
 
-    for (var key in categories) {
-        tuples.push([key, categories[key]]);
+        for (var key in categories) {
+            tuples.push([key, categories[key]]);
+        }
+
+        // sort the tuple from greatest to least
+        tuples.sort(function(a, b) {
+            a = a[1];
+            b = b[1];
+
+            return a > b ? -1 : (a < b ? 1 : 0);
+        });
+
+        // the primary category is the first in the list, the secondary is the second.
+        primaryCategory = tuples[0][0]
+
+        // if answers are all one category
+        if (tuples[1][1] < 1) {
+            secondaryCategory = primaryCategory;
+        }
+        else {
+            secondaryCategory = tuples[1][0];
+        }
+
+        // get both our first and second choice
+        printResult(primaryCategory, secondaryCategory, $firstChoice);
+        printResult(secondaryCategory, primaryCategory, $secondChoice);
     }
-
-    // sort the tuple from greatest to least
-    tuples.sort(function(a, b) {
-        a = a[1];
-        b = b[1];
-
-        return a > b ? -1 : (a < b ? 1 : 0);
-    });
-
-    // the primary category is the first in the list, the secondary is the second.
-    primaryCategory = tuples[0][0]
-
-    // if answers are all one category
-    if (tuples[1][1] < 1) {
-        secondaryCategory = primaryCategory;
-    }
-    else {
-        secondaryCategory = tuples[1][0];
-    }
-
-    // get both our first and second choice
-    printResult(primaryCategory, secondaryCategory, $firstChoice);
-    printResult(secondaryCategory, primaryCategory, $secondChoice);
 }
 
 var findAnswer = function(question) {
     var $answers = $(question).find('.answer');
 
+    answerChecked = false;
+
     _.each($answers, function(answer) {
         if ($(answer).is(':checked')) {
             category = $(answer).attr('value');
+            answerChecked = true;
         }
     });
+
+    console.log(answerChecked);
+
 }
 
 var printResult = function(primary, secondary, $el) {
