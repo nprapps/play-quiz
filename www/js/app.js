@@ -99,9 +99,6 @@ var findAnswer = function(question) {
             answerChecked = true;
         }
     });
-
-    console.log(answerChecked);
-
 }
 
 var printResult = function(primary, secondary, $el) {
