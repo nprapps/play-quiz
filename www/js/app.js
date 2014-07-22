@@ -74,8 +74,6 @@ var calculateResult = function() {
             secondaryCategory = tuples[1][0];
         }
 
-        console.log(tuples);
-
         // get both our first and second choice
         printResult(primaryCategory, secondaryCategory, $firstChoice);
         printResult(secondaryCategory, primaryCategory, $secondChoice);
