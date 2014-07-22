@@ -85,11 +85,15 @@ var findAnswer = function(question) {
 }
 
 var printResult = function(primary, secondary) {
-    // find the result based on primary and secondary categories
+    // store the games sheet
     var games = COPY.games;
 
     var primaryArray = [];
 
+    /*
+    * Loop through the games sheet by row. The first element of the array is the category name.
+    * Match that element to the primary category, and set that as the array we will work with.
+    */
     for (i=0; i<games.length; i++) {
         var categoryArray = games[i]
 
@@ -100,6 +104,9 @@ var printResult = function(primary, secondary) {
 
     var result = null;
 
+    /*
+    * Find the correct cell based on the secondary category. This order is expected.
+    */
     switch(secondary) {
         case 'creativity':
             result = primaryArray[1];
