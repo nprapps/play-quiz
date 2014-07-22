@@ -61,7 +61,15 @@ var calculateResult = function() {
 
     // the primary category is the first in the list, the secondary is the second.
     primaryCategory = tuples[0][0]
-    secondaryCategory = tuples[1][0];
+
+    // if answers are all one category
+    if (tuples[1][1] < 1) {
+        secondaryCategory = primaryCategory;
+    }
+
+    else {
+        secondaryCategory = tuples[1][0];
+    }
 
     printResult(primaryCategory, secondaryCategory);
 }
@@ -109,6 +117,8 @@ var printResult = function(primary, secondary) {
             result = primaryArray[5];
             break;
     }
+
+    console.log(primary,secondary);
 
     var context = {
         'game': result,
