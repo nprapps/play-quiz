@@ -110,7 +110,14 @@ var printResult = function(primary, secondary) {
             break;
     }
 
-    $('.result').text(result);
+    var context = {
+        'game': result,
+        'explanation': 'TKTKTKTK'
+    }
+
+    var html = JST.result(context);
+
+    $('.result').html(html);
 
 }
 
