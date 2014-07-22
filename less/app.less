@@ -62,6 +62,54 @@ a.btn.btn-blue {
 		.make-md-column(12);
 	}
 }
+
+.radio {
+	background: @gray-lighter;
+	min-height: 44px;
+	position: relative;
+	padding-left: 54px;
+
+
+
+	input[type="radio"] {
+		display: block;
+		.square(44px);
+		position: absolute;
+		top: 0;
+		left: 0;
+		float: none;
+		margin: 0;
+
+		&:before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 10;
+			content: ' ';
+			.square(44px);
+			background: @gray-lighter;
+			border: 3px solid @gray-light;
+		}
+	}
+
+	input[type="radio"]:checked {
+		&:before {
+			border-color: @primary-control;
+			background: @primary-control;
+			font-family: FontAwesome;
+			font-weight: normal;
+			font-style: normal;
+			text-decoration: inherit;
+			-webkit-font-smoothing: antialiased;
+			content: "\f00c";
+			font-size: @font-size-base * 2;
+			color: #fff;
+			text-align: center;
+			line-height: 40px;
+		}
+	}
+}
+
 .submit {
 	.make-row();
 

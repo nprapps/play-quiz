@@ -31,7 +31,7 @@
                         {% endif %}
 
                         {% if answer.photo %}
-                        <img class="img-responsive" src="{{ S3_BASE_URL }}/assets/img/{{ answer.photo }}"
+                        <img class="img-responsive" src="{{ S3_BASE_URL }}/assets/img/{{ answer.photo }}">
                         {% endif %}
                         <label>
                             <input class="answer" type="radio" name="{{question.key}}" value="{{answer.category}}"> {{answer.text}}
