@@ -61,7 +61,15 @@ var calculateResult = function() {
 
     // the primary category is the first in the list, the secondary is the second.
     primaryCategory = tuples[0][0]
-    secondaryCategory = tuples[1][0];
+
+    // if answers are all one category
+    if (tuples[1][1] < 1) {
+        secondaryCategory = primaryCategory;
+    }
+
+    else {
+        secondaryCategory = tuples[1][0];
+    }
 
     printResult(primaryCategory, secondaryCategory);
 }
@@ -77,11 +85,15 @@ var findAnswer = function(question) {
 }
 
 var printResult = function(primary, secondary) {
-    // find the result based on primary and secondary categories
+    // store the games sheet
     var games = COPY.games;
 
     var primaryArray = [];
 
+    /*
+    * Loop through the games sheet by row. The first element of the array is the category name.
+    * Match that element to the primary category, and set that as the array we will work with.
+    */
     for (i=0; i<games.length; i++) {
         var categoryArray = games[i]
 
@@ -92,6 +104,9 @@ var printResult = function(primary, secondary) {
 
     var result = null;
 
+    /*
+    * Find the correct cell based on the secondary category. This order is expected.
+    */
     switch(secondary) {
         case 'creativity':
             result = primaryArray[1];
@@ -109,6 +124,8 @@ var printResult = function(primary, secondary) {
             result = primaryArray[5];
             break;
     }
+
+    console.log(primary,secondary);
 
     var context = {
         'game': result,
