@@ -3,6 +3,9 @@ var $shareModal = null;
 var $commentCount = null;
 var $submitQuiz = null;
 var $questions = null;
+var $results = null;
+var $firstChoice = null
+var $secondChoice = null;
 
 // Global state
 var firstShareLoad = true;
@@ -28,6 +31,9 @@ var onDocumentLoad = function(e) {
     $commentCount = $('.comment-count');
     $submitQuiz = $('.submit-quiz');
     $questions = $('.question');
+    $results = $('.results');
+    $firstChoice = $('.first-choice');
+    $secondChoice = $('.second-choice');
 
     // Bind events
     $shareModal.on('shown.bs.modal', onShareModalShown);
@@ -66,12 +72,13 @@ var calculateResult = function() {
     if (tuples[1][1] < 1) {
         secondaryCategory = primaryCategory;
     }
-
     else {
         secondaryCategory = tuples[1][0];
     }
 
-    printResult(primaryCategory, secondaryCategory);
+    // get both our first and second choice
+    printResult(primaryCategory, secondaryCategory, $firstChoice);
+    printResult(secondaryCategory, primaryCategory, $secondChoice);
 }
 
 var findAnswer = function(question) {
@@ -84,7 +91,7 @@ var findAnswer = function(question) {
     });
 }
 
-var printResult = function(primary, secondary) {
+var printResult = function(primary, secondary, $el) {
     // store the games sheet
     var games = COPY.games;
 
@@ -125,16 +132,13 @@ var printResult = function(primary, secondary) {
             break;
     }
 
-    console.log(primary,secondary);
-
     var context = {
         'game': result,
         'explanation': 'TKTKTKTK'
     }
-
+    $results.show();
     var html = JST.result(context);
-
-    $('.result').html(html);
+    $el.html(html);
 
 }
 
