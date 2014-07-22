@@ -58,19 +58,10 @@ var calculateResult = function() {
     };
 
     if (answerChecked == true) {
-        var tuples = [];
-
-        for (var key in categories) {
-            tuples.push([key, categories[key]]);
-        }
+        var tuples = _.pairs(categories);
 
         // sort the tuple from greatest to least
-        tuples.sort(function(a, b) {
-            a = a[1];
-            b = b[1];
-
-            return a > b ? -1 : (a < b ? 1 : 0);
-        });
+        tuples = _.sortBy(tuples, function(category) { return category[1] }).reverse();
 
         // the primary category is the first in the list, the secondary is the second.
         primaryCategory = tuples[0][0]
@@ -82,6 +73,8 @@ var calculateResult = function() {
         else {
             secondaryCategory = tuples[1][0];
         }
+
+        console.log(tuples);
 
         // get both our first and second choice
         printResult(primaryCategory, secondaryCategory, $firstChoice);
