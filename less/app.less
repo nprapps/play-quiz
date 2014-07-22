@@ -144,16 +144,28 @@ a.btn.btn-blue {
 .results {
 	.make-row();
 	display: none;
+
+	.first-choice, .second-choice {
+		.make-md-column(12);
+	}
+
 }
 
 .all-games {
-	.primary-category {
-		.make-row();
-	}
-
-	.category-name, .game {
+	h2.all-header {
 		.make-md-column(12);
 	}
+
+	.category-name {
+		.make-md-column(12);
+	}
+
+	.game {
+		p {
+			.make-md-column(12);
+		}
+	}
+
 }
 
 .video-wrapper {

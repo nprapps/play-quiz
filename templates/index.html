@@ -46,32 +46,32 @@
                 </div>
 
                 <div class="all-games">
-                <h2>All possibilities</h2>
+                <h2 class="all-header">All possibilities</h2>
 
                     {% for row in COPY.games %}
                         <div class="primary-category">
                             <h3 class="category-name">Primary: {{ COPY.category_mapper['%s' % row.primary] }}</h3>
 
-                            <p class="game">
-                                <strong>Secondary: Creativity</strong><br>
-                                {{ row.creativity }}
-                            </p>
-                            <p class="game">
-                                <strong>Secondary: Social Connection</strong><br>
-                                {{ row.social_connection }}
-                            </p>
-                            <p class="game">
-                                <strong>Secondary: Physical Exploration</strong><br>
-                                {{ row.physical_exploration }}
-                            </p>
-                            <p class="game">
-                                <strong>Secondary: Pleasure and Fun</strong><br>
-                                {{ row.pleasure_fun }}
-                            </p>
-                            <p class="game">
-                                <strong>Secondary: Mental Stimulation</strong><br>
-                                {{ row.mental_stimulation }}
-                            </p>
+                            <div class="game">
+                                <p><strong>Secondary: Creativity</strong><br>
+                                {{ row.creativity }}</p>
+                            </div>
+                            <div class="game">
+                                <p><strong>Secondary: Social Connection</strong><br>
+                                {{ row.social_connection }}</p>
+                            </div>
+                            <div class="game">
+                                <p><strong>Secondary: Physical Exploration</strong><br>
+                                {{ row.physical_exploration }}</p>
+                            </div>
+                            <div class="game">
+                                <p><strong>Secondary: Pleasure and Fun</strong><br>
+                                {{ row.pleasure_fun }}</p>
+                            </div>
+                            <div class="game">
+                                <p><strong>Secondary: Mental Stimulation</strong><br>
+                                {{ row.mental_stimulation }}</p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
