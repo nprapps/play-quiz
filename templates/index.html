@@ -9,28 +9,9 @@
     <div class="quiz">
         <div class="questions">
             {% for question in COPY.questions %}
-            <div class="question form-group">
+            <div id="{{ question.key }}" class="question form-group">
                 <h3>{{ question.value }}</h3>
-                <div class="answers">
-                {% for answer in COPY[question.key] %}
-                    <div class="answer">
-                        <div class="radio">
-                            {% if answer.video %}
-                            <div class="video-wrapper">
-                                <iframe width="100%" height="100%" src="{{ answer.video }}" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                            {% endif %}
-
-                            {% if answer.photo %}
-                            <img class="img-responsive" src="{{ S3_BASE_URL }}/assets/img/{{ answer.photo }}">
-                            {% endif %}
-                            <label>
-                                <input class="answer" type="radio" name="{{question.key}}" value="{{answer.category}}"> {{answer.text}}
-                            </label>
-                        </div>
-                    </div>
-                {% endfor %}
-                </div>
+                <div class="answers"></div>
             </div>
             {% endfor %}
             <div class="submit">

@@ -36,6 +36,11 @@ var onDocumentLoad = function(e) {
     $firstChoice = $('.first-choice');
     $secondChoice = $('.second-choice');
     $error = $('.error');
+
+    // Render each question's choices in random order
+    $questions.each(renderChoices);
+
+    // Cache answers lookup after they're rendered
     $answers = $('.answer');
 
     // Bind events
@@ -45,6 +50,19 @@ var onDocumentLoad = function(e) {
     $answers.on('click', checkQuizCompletion);
 
     getCommentCount(showCommentCount);
+}
+
+var renderChoices = function(index, el) {
+    var questionKey = $(el).attr('id')
+    var choices = _.shuffle(COPY[questionKey]);
+
+    var context = {
+        'choices': choices,
+        'questionKey': questionKey
+    }
+
+    var html = JST.choices(context);
+    $(el).find('.answers').html(html);
 }
 
 var checkQuizCompletion = function() {
