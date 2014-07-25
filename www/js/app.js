@@ -68,8 +68,9 @@ var renderChoices = function(index, el) {
     $(el).find('.answers').html(html);
 }
 
-var checkQuizCompletion = function() {
+var checkQuizCompletion = function(el) {
     answersChecked = 0;
+    var $nextQuestion = $(this).parents('.question').next();
 
     for (i = 0; i < $questions.length; i++) {
         findAnswer($questions[i])
@@ -77,7 +78,10 @@ var checkQuizCompletion = function() {
 
     if (answersChecked == $questions.length) {
         $submitQuiz.removeAttr("disabled");
+    } else {
+        $('html, body').animate({ scrollTop: $nextQuestion.offset().top }, 500 );
     }
+
 }
 
 var calculateResult = function() {
@@ -170,6 +174,8 @@ var printResult = function(primary, secondary, $el) {
     var html = JST.result(context);
     $el.html(html);
 
+    $('html, body').animate({ scrollTop: $results.offset().top }, 500 );
+
 }
 
 /*
@@ -184,6 +190,8 @@ var resetQuiz = function(){
     // Uncheck radios and hide results
     $answers.prop('checked', false);
     $results.hide();
+
+    $('html, body').animate({ scrollTop: $('#question_1').offset().top }, 1000);
 }
 
 /*
