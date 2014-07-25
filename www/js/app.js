@@ -31,6 +31,7 @@ var onDocumentLoad = function(e) {
     $shareModal = $('#share-modal');
     $commentCount = $('.comment-count');
     $submitQuiz = $('.submit-quiz');
+    $resetQuiz = $('.reset-quiz');
     $questions = $('.question');
     $results = $('.results');
     $firstChoice = $('.first-choice');
@@ -47,6 +48,7 @@ var onDocumentLoad = function(e) {
     $shareModal.on('shown.bs.modal', onShareModalShown);
     $shareModal.on('hidden.bs.modal', onShareModalHidden);
     $submitQuiz.on('click', calculateResult);
+    $resetQuiz.on('click', resetQuiz);
     $answers.on('click', checkQuizCompletion);
 
     getCommentCount(showCommentCount);
@@ -58,6 +60,7 @@ var renderChoices = function(index, el) {
 
     var context = {
         'choices': choices,
+        'categories': Object.getOwnPropertyNames(choices),
         'questionKey': questionKey
     }
 
@@ -167,6 +170,20 @@ var printResult = function(primary, secondary, $el) {
     var html = JST.result(context);
     $el.html(html);
 
+}
+
+/*
+ * Reset the quiz to play again
+ */
+var resetQuiz = function(){
+    // Reset category scores
+    _.each(categories, function(value, key, list){
+        list[key] = 0;
+    });
+
+    // Uncheck radios and hide results
+    $answers.prop('checked', false);
+    $results.hide();
 }
 
 /*
