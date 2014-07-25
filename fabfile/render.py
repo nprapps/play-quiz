@@ -7,9 +7,11 @@ Commands for rendering various parts of the app stack.
 from glob import glob
 import os
 
-from fabric.api import local, task
+from fabric.api import local, task, require
+from fabric.state import env
 
 import app
+import app_config
 
 @task
 def less():
@@ -121,3 +123,22 @@ def render_all():
         with open(filename, 'w') as f:
             f.write(content.encode('utf-8'))
 
+@task(default=True)
+def render_embed():
+    """
+    Render pym embed and copy to clipboard
+    """
+
+    require('settings', provided_by=['development', 'staging', 'production'])
+    app_config.configure_targets(env.get('settings', None))
+
+    with app.app.test_request_context():
+        filename = 'www/pym_embed.html'
+        view = app.__dict__['embed']
+        content = view()
+
+    with open(filename, 'w') as f:
+        f.write(content.encode('utf-8'))
+
+    local('pbcopy < www/pym_embed.html')
+    print 'The pym embed HTML has been copied to your clipboard.'

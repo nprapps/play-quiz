@@ -34,12 +34,12 @@ def comments():
     """
     return render_template('comments.html', **make_context())
 
-@app.route('/widget.html')
-def widget():
+@app.route('/pym_embed.html')
+def embed():
     """
     Embeddable widget example page.
     """
-    return render_template('widget.html', **make_context())
+    return render_template('pym_embed.html', **make_context())
 
 @app.route('/test_widget.html')
 def test_widget():

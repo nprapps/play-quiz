@@ -23,6 +23,8 @@ var categories = {
     'mental_stimulation': 0
 }
 
+var pymChild = null;
+
 /*
  * Run on page load.
  */
@@ -38,8 +40,11 @@ var onDocumentLoad = function(e) {
     $secondChoice = $('.second-choice');
     $error = $('.error');
 
+    pymChild = new pym.Child();
+
     // Render each question's choices in random order
     $questions.each(renderChoices);
+    pymChild.sendHeight();
 
     // Cache answers lookup after they're rendered
     $answers = $('.answer');
@@ -66,6 +71,10 @@ var renderChoices = function(index, el) {
 
     var html = JST.choices(context);
     $(el).find('.answers').html(html);
+
+    $(el).find('img').load(function(){
+        pymChild.sendHeight();
+    });
 }
 
 var checkQuizCompletion = function(el) {
@@ -79,7 +88,7 @@ var checkQuizCompletion = function(el) {
     if (answersChecked == $questions.length) {
         $submitQuiz.removeAttr("disabled");
     } else {
-        $('html, body').animate({ scrollTop: $nextQuestion.offset().top }, 500 );
+        pymChild.sendMessage('scrollTo', $nextQuestion.offset().top);
     }
 
 }
@@ -174,8 +183,8 @@ var printResult = function(primary, secondary, $el) {
     var html = JST.result(context);
     $el.html(html);
 
-    $('html, body').animate({ scrollTop: $results.offset().top }, 500 );
-
+    pymChild.sendHeight();
+    pymChild.sendMessage('scrollTo', $results.offset().top);
 }
 
 /*
@@ -191,7 +200,8 @@ var resetQuiz = function(){
     $answers.prop('checked', false);
     $results.hide();
 
-    $('html, body').animate({ scrollTop: $('#question_1').offset().top }, 1000);
+    pymChild.sendHeight();
+    pymChild.sendMessage('scrollTo', 0);
 }
 
 /*
