@@ -164,10 +164,10 @@ a.btn.btn-blue {
 		}
 	}
 
-	input[type="radio"]:checked {
+	input[type="radio"]:checked,
+	input[type="radio"]:hover {
 		&:before {
-			border-color: @primary-control;
-			background: @primary-control;
+			background: lighten(@gray-light, 20%);
 			font-family: FontAwesome;
 			font-weight: normal;
 			font-style: normal;
@@ -179,6 +179,11 @@ a.btn.btn-blue {
 			text-align: center;
 			line-height: 40px;
 		}
+	}
+
+	input[type="radio"]:checked:before {
+		border-color: @primary-control;
+		background: @primary-control;
 	}
 }
 
