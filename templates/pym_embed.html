@@ -2,7 +2,7 @@
 <script type="text/javascript" src="{{ S3_BASE_URL }}/js/lib/pym.js"></script>
 <script>
 	var onScrollMessage = function(offset){
-		$('html, body').animate({ scrollTop: parseInt(offset) + $('#quiz').offset().top }, 500 );
+		$('html, body').animate({ scrollTop: parseInt(offset) + $('#quiz').offset().top - 30 }, 500 );
 	}
 
     var pymParent = new pym.Parent('quiz', '{{ S3_BASE_URL }}', {});

@@ -19,48 +19,12 @@
             </div>
 
             <div class="results">
-                <p><em>{{ COPY.content.first_choice_prefix }}</em></p>
-                <div class="first-choice">
-                </div>
 
-                <p><em>{{ COPY.content.second_choice_prefix }}</em></p>
-                <div class="second-choice">
-                </div>
+                <div class="top-games"></div>
 
                 <button class="btn btn-primary btn-lg reset-quiz">Play again</button>
 
-                {#
-                <div class="all-games">
-                    <h2 class="all-header">All possibilities</h2>
-
-                    {% for row in COPY.games %}
-                        <div class="primary-category">
-                            <h3 class="category-name">Primary: {{ COPY.category_mapper['%s' % row.primary] }}</h3>
-
-                            <div class="game">
-                                <p><strong>Secondary: Creativity</strong><br>
-                                {{ row.creativity }}</p>
-                            </div>
-                            <div class="game">
-                                <p><strong>Secondary: Social Connection</strong><br>
-                                {{ row.social_connection }}</p>
-                            </div>
-                            <div class="game">
-                                <p><strong>Secondary: Physical Exploration</strong><br>
-                                {{ row.physical_exploration }}</p>
-                            </div>
-                            <div class="game">
-                                <p><strong>Secondary: Pleasure and Fun</strong><br>
-                                {{ row.pleasure_fun }}</p>
-                            </div>
-                            <div class="game">
-                                <p><strong>Secondary: Mental Stimulation</strong><br>
-                                {{ row.mental_stimulation }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                #}
+                <div class="all-games"></div>
             </div>
 
 

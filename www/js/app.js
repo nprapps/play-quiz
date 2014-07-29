@@ -4,8 +4,8 @@ var $commentCount = null;
 var $submitQuiz = null;
 var $questions = null;
 var $results = null;
-var $firstChoice = null
-var $secondChoice = null;
+var $topGames = null
+var $allGames = null;
 var $answers = null;
 // Global state
 var firstShareLoad = true;
@@ -36,8 +36,8 @@ var onDocumentLoad = function(e) {
     $resetQuiz = $('.reset-quiz');
     $questions = $('.question');
     $results = $('.results');
-    $firstChoice = $('.first-choice');
-    $secondChoice = $('.second-choice');
+    $topGames = $('.top-games');
+    $allGames = $('.all-games');
     $error = $('.error');
 
     pymChild = new pym.Child();
@@ -119,8 +119,8 @@ var calculateResult = function() {
     }
 
     // get both our first and second choice
-    printResult(primaryCategory, secondaryCategory, $firstChoice);
-    printResult(secondaryCategory, primaryCategory, $secondChoice);
+    renderResults(secondaryCategory, primaryCategory, $topGames);
+    renderGameList(secondaryCategory, primaryCategory, $allGames);
 }
 
 var findAnswer = function(question) {
@@ -134,57 +134,53 @@ var findAnswer = function(question) {
     });
 }
 
-var printResult = function(primary, secondary, $el) {
+var renderResults = function(primaryCategory, secondaryCategory, $el) {
     // store the games sheet
-    var games = COPY.games;
+    var games = _.toArray(COPY.games);
 
-    var primaryArray = [];
-
-    /*
-    * Loop through the games sheet by row. The first element of the array is the category name.
-    * Match that element to the primary category, and set that as the array we will work with.
-    */
-    for (i=0; i<games.length; i++) {
-        var categoryArray = games[i]
-
-        if (categoryArray[0] === primary) {
-            primaryArray = categoryArray;
-        }
-    }
-
-    var result = null;
-
-    /*
-    * Find the correct cell based on the secondary category. This order is expected.
-    */
-    switch(secondary) {
-        case 'creativity':
-            result = primaryArray[1];
-            break;
-        case 'social_connection':
-            result = primaryArray[2];
-            break;
-        case 'physical_exploration':
-            result = primaryArray[3];
-            break;
-        case 'pleasure_fun':
-            result = primaryArray[4];
-            break;
-        case 'mental_stimulation':
-            result = primaryArray[5];
-            break;
-    }
+    // Find the game that matches our top two categories
+    var firstResult = _.findWhere(games, { primary: primaryCategory, secondary: secondaryCategory});
+    var secondResult = _.findWhere(games, { primary: secondaryCategory, secondary: primaryCategory});
 
     var context = {
-        'game': result,
-        'explanation': 'TKTKTKTK'
+        'firstResult': firstResult,
+        'secondResult': secondResult,
+        'primaryCategory': COPY['category_mapper'][primaryCategory].toLowerCase(),
+        'secondaryCategory': COPY['category_mapper'][secondaryCategory].toLowerCase()
     }
+
+    $submitQuiz.hide();
     $results.show();
     var html = JST.result(context);
     $el.html(html);
 
     pymChild.sendHeight();
     pymChild.sendMessage('scrollTo', $results.offset().top);
+}
+
+var renderGameList = function(primaryCategory, secondaryCategory, $el) {
+    var games = _.chain(COPY.games)
+                 .toArray()
+                 .reject(function(game){
+                    var firstResult = [primaryCategory, secondaryCategory];
+                    var secondResult = firstResult.reverse();
+                    var gameCategories = [game['primary'], game['secondary']];
+                    return gameCategories === firstResult || gameCategories === secondResult;
+                 })
+                 .each(function(game){
+                    game['primary'] = COPY['category_mapper'][game['primary']];
+                    game['secondary'] = COPY['category_mapper'][game['secondary']];
+                 })
+                 .value();
+
+    var context = {
+        'games': games
+    }
+
+    var html = JST.game_list(context);
+    $el.html(html);
+
+    pymChild.sendHeight();
 }
 
 /*
@@ -199,6 +195,7 @@ var resetQuiz = function(){
     // Uncheck radios and hide results
     $answers.prop('checked', false);
     $results.hide();
+    $submitQuiz.show();
 
     pymChild.sendHeight();
     pymChild.sendMessage('scrollTo', 0);
