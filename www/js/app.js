@@ -7,12 +7,12 @@ var $results = null;
 var $topGames = null
 var $allGames = null;
 var $answers = null;
+
 // Global state
 var firstShareLoad = true;
 var category = null;
 var primaryCategory = null;
 var secondaryCategory = null;
-var games = null;
 var answersChecked = 0;
 
 var categories = {
@@ -139,8 +139,8 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
     var games = _.toArray(COPY.games);
 
     // Find the game that matches our top two categories
-    var firstResult = _.findWhere(games, { primary: primaryCategory, secondary: secondaryCategory});
-    var secondResult = _.findWhere(games, { primary: secondaryCategory, secondary: primaryCategory});
+    var firstResult = _.findWhere(games, { 'primary': primaryCategory, 'secondary': secondaryCategory});
+    var secondResult = _.findWhere(games, { 'primary': secondaryCategory, 'secondary': primaryCategory});
 
     var context = {
         'firstResult': firstResult,
@@ -168,8 +168,8 @@ var renderGameList = function(primaryCategory, secondaryCategory, $el) {
                     return gameCategories === firstResult || gameCategories === secondResult;
                  })
                  .each(function(game){
-                    game['primary'] = COPY['category_mapper'][game['primary']];
-                    game['secondary'] = COPY['category_mapper'][game['secondary']];
+                    game['primaryLabel'] = COPY['category_mapper'][game['primary']];
+                    game['secondaryLabel'] = COPY['category_mapper'][game['secondary']];
                  })
                  .value();
 
