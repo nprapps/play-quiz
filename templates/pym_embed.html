@@ -5,6 +5,6 @@
 		$('html, body').animate({ scrollTop: parseInt(offset) + $('#quiz').offset().top - 30 }, 500 );
 	}
 
-    var pymParent = new pym.Parent('quiz', '{{ S3_BASE_URL }}', {});
+    var pymParent = new pym.Parent('quiz', '{{ S3_BASE_URL }}/', {});
     pymParent.onMessage('scrollTo', onScrollMessage);
 </script>
