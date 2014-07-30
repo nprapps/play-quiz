@@ -3,13 +3,15 @@
 import json
 from mimetypes import guess_type
 
-from flask import abort
+from flask import abort, Markup
 
 import app_config
 import copytext
 import envoy
 from flask import Blueprint
 from render_utils import flatten_app_config
+
+from smartypants import smartypants
 
 static = Blueprint('static', __name__)
 
@@ -44,9 +46,21 @@ def _app_config_js():
 # Render copytext
 @static.route('/js/copy.js')
 def _copy_js():
-    copy = 'window.COPY = ' + copytext.Copy(app_config.COPY_PATH).json()
+    copy = copytext.Copy(app_config.COPY_PATH).json()
+    copy = json.loads(copy)
 
-    return copy, 200, { 'Content-Type': 'application/javascript' }
+    def convert_entities(obj):
+        for key in obj.iterkeys():
+            if isinstance(obj[key], unicode):
+                obj[key] = obj[key].encode('ascii', 'xmlcharrefreplace')
+            else:
+                convert_entities(obj[key])
+
+    convert_entities(copy)
+
+    copy_json = 'window.COPY = ' + json.dumps(copy)
+
+    return copy_json, 200, { 'Content-Type': 'application/javascript' }
 
 # Server arbitrary static files on-demand
 @static.route('/<path:path>')
