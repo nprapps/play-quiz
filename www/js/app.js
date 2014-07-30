@@ -50,8 +50,6 @@ var onDocumentLoad = function(e) {
     $answers = $('.answer');
 
     // Bind events
-    $shareModal.on('shown.bs.modal', onShareModalShown);
-    $shareModal.on('hidden.bs.modal', onShareModalHidden);
     $submitQuiz.on('click', calculateResult);
     $resetQuiz.on('click', resetQuiz);
     $answers.on('click', checkQuizCompletion);
