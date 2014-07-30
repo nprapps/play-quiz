@@ -321,7 +321,7 @@
   };
 
   // Shuffle a collection, using the modern version of the
-  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
   _.shuffle = function(obj) {
     var set = obj && obj.length === +obj.length ? obj : _.values(obj);
     var length = set.length;
