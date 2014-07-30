@@ -55,8 +55,6 @@ var onDocumentLoad = function(e) {
     $submitQuiz.on('click', calculateResult);
     $resetQuiz.on('click', resetQuiz);
     $answers.on('click', checkQuizCompletion);
-
-    getCommentCount(showCommentCount);
 }
 
 var renderChoices = function(index, el) {
@@ -199,50 +197,6 @@ var resetQuiz = function(){
 
     pymChild.sendHeight();
     pymChild.sendMessage('scrollTo', 0);
-}
-
-/*
- * Display the comment count.
- */
-var showCommentCount = function(count) {
-    $commentCount.text(count);
-
-    if (count > 0) {
-        $commentCount.addClass('has-comments');
-    }
-
-    if (count > 1) {
-        $commentCount.next('.comment-label').text('Comments');
-    }
-}
-
-/*
- * Share modal opened.
- */
-var onShareModalShown = function(e) {
-    _gaq.push(['_trackEvent', APP_CONFIG.PROJECT_SLUG, 'open-share-discuss']);
-
-    if (firstShareLoad) {
-        loadComments();
-
-        firstShareLoad = false;
-    }
-}
-
-/*
- * Share modal closed.
- */
-var onShareModalHidden = function(e) {
-    _gaq.push(['_trackEvent', APP_CONFIG.PROJECT_SLUG, 'close-share-discuss']);
-}
-
-/*
- * Text copied to clipboard.
- */
-var onClippyCopy = function(e) {
-    alert('Copied to your clipboard!');
-
-    _gaq.push(['_trackEvent', APP_CONFIG.PROJECT_SLUG, 'summary-copied']);
 }
 
 $(onDocumentLoad);
