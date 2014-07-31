@@ -155,6 +155,7 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
 }
 
 var renderGameList = function(primaryCategory, secondaryCategory, $el) {
+    // Remove the top recommendations from the list and group by category
     var games = _.chain(COPY.games)
                  .toArray()
                  .reject(function(game){
@@ -167,7 +168,17 @@ var renderGameList = function(primaryCategory, secondaryCategory, $el) {
                     game['primaryLabel'] = COPY['category_mapper'][game['primary']];
                     game['secondaryLabel'] = COPY['category_mapper'][game['secondary']];
                  })
+                 .groupBy(function(game){
+                    return game['primary'];
+                 })
                  .value();
+
+    // Sort each category by the secondary category
+    _.each(games, function(value, key, list){
+        list[key] = _.sortBy(value, function(game){
+            return game['secondaryLabel'];
+        });
+    });
 
     var context = {
         'games': games

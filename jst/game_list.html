@@ -1,6 +1,15 @@
 <h4><strong>Here are some other options:</strong></h4>
 
-<% _.each(games, function(game){ %>
-	<h4><%= game.game %></h4>
-	<p><%= game.primaryLabel %><% if (game.primary !== game.secondary){ %>, <%= game.secondaryLabel %><% } %></p>
+
+<% _.each(games, function(category){ %>
+<div class="category <%= category[0]['primary'].replace('_', '-') %>">
+
+	<h2><%= category[0]['primaryLabel'] %></h2>
+
+	<% _.each(category, function(game){ %>
+		<h4><%= game.game %></h4>
+		<% if (game.primary !== game.secondary){ %><p><%= game.secondaryLabel %></p><% } %>
+	<% }); %>
+</div>
 <% }); %>
+
