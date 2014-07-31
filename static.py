@@ -52,6 +52,7 @@ def _copy_js():
     def convert_entities(obj):
         for key in obj.iterkeys():
             if isinstance(obj[key], unicode):
+                obj[key] = smartypants(obj[key])
                 obj[key] = obj[key].encode('ascii', 'xmlcharrefreplace')
             else:
                 convert_entities(obj[key])

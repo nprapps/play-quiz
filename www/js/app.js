@@ -159,9 +159,9 @@ var renderGameList = function(primaryCategory, secondaryCategory, $el) {
                  .toArray()
                  .reject(function(game){
                     var firstResult = [primaryCategory, secondaryCategory];
-                    var secondResult = firstResult.reverse();
+                    var secondResult = [secondaryCategory, primaryCategory];
                     var gameCategories = [game['primary'], game['secondary']];
-                    return gameCategories === firstResult || gameCategories === secondResult;
+                    return _.isEqual(gameCategories, firstResult) || _.isEqual(gameCategories, secondResult);
                  })
                  .each(function(game){
                     game['primaryLabel'] = COPY['category_mapper'][game['primary']];
