@@ -6,10 +6,14 @@
 
 	<h2><%= category[0]['primaryLabel'] %></h2>
 
+	<ul>
 	<% _.each(category, function(game){ %>
-		<h4><%= game.game %></h4>
-		<% if (game.primary !== game.secondary){ %><p><%= game.secondaryLabel %></p><% } %>
+		<li>
+			<h4><%= game.game %></h4>
+			<% if (game.primary !== game.secondary){ %><p><%= game.secondaryLabel %></p><% } %>
+		</li>
 	<% }); %>
+	</ul>
 </div>
 <% }); %>
 

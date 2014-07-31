@@ -10,7 +10,7 @@
         <div class="questions">
             {% for question in COPY.questions %}
             <div id="{{ question.key }}" class="question form-group">
-                <h3>{{ question.value|smarty }}</h3>
+                <h3><span class="count">{{ loop.index }}</span> {{ question.value|smarty }}</h3>
                 <div class="answers"></div>
             </div>
             {% endfor %}
