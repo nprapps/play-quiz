@@ -205,7 +205,7 @@ var resetQuiz = function(){
 
     // Reset radio button and rebind events
     $answers.prop('checked', false)
-            .prop('disabled',false);
+            .prop('disabled',false)
             .on('click', checkQuizCompletion);
 
     // Hide results, show the quiz submit button
