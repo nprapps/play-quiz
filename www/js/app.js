@@ -75,7 +75,7 @@ var renderChoices = function(index, el) {
 
 var checkQuizCompletion = function(el) {
     answersChecked = 0;
-    var $nextQuestion = $(this).parents('.question').next();
+    var $next = $(this).parents('.question').next();
 
     for (i = 0; i < $questions.length; i++) {
         findAnswer($questions[i])
@@ -83,8 +83,9 @@ var checkQuizCompletion = function(el) {
 
     if (answersChecked == $questions.length) {
         $submitQuiz.removeAttr("disabled");
+        pymChild.sendMessage('scrollTo', $submitQuiz.offset().top);
     } else {
-        pymChild.sendMessage('scrollTo', $nextQuestion.offset().top);
+        pymChild.sendMessage('scrollTo', $next.offset().top);
     }
 
 }

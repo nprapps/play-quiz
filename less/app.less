@@ -144,6 +144,7 @@ a.btn.btn-blue {
 	input[type="radio"] {
 		display: block;
 		.square(44px);
+		.img-circle;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -151,6 +152,7 @@ a.btn.btn-blue {
 		margin: 0;
 		border: none;
 		background: transparent;
+		-webkit-appearance: none;
 
 		&:before {
 			position: absolute;
@@ -164,6 +166,10 @@ a.btn.btn-blue {
 			border: 3px solid lighten(@gray-light, 20%);
 			cursor: pointer;
 		}
+	}
+
+	input[type="radio"] {
+		outline: 0;
 	}
 
 	input[type="radio"]:checked,
