@@ -93,7 +93,7 @@ var checkQuizCompletion = function(el) {
 var calculateResult = function() {
     answersChecked = 0;
 
-    $answers.prop('disabled,'true)
+    $answers.prop('disabled',true)
             .off('click');
 
     for (i=0; i<$questions.length; i++) {
