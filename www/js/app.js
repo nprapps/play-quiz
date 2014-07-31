@@ -93,8 +93,8 @@ var checkQuizCompletion = function(el) {
 var calculateResult = function() {
     answersChecked = 0;
 
-    $answers.prop("disabled",true);
-    $answers.off('click');
+    $answers.prop('disabled,'true)
+            .off('click');
 
     for (i=0; i<$questions.length; i++) {
         findAnswer($questions[i]);
@@ -203,14 +203,14 @@ var resetQuiz = function(){
         list[key] = 0;
     });
 
-    // Uncheck radios and hide results
-    $answers.prop('checked', false);
+    // Reset radio button and rebind events
+    $answers.prop('checked', false)
+            .prop('disabled',false);
+            .on('click', checkQuizCompletion);
+
+    // Hide results, show the quiz submit button
     $results.hide();
     $submitQuiz.show();
-
-    // Rebind radio button events
-    $answers.prop("disabled",false);
-    $answers.on('click', checkQuizCompletion);
 
     pymChild.sendHeight();
     pymChild.sendMessage('scrollTo', 0);
