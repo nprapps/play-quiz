@@ -110,8 +110,13 @@ var calculateResult = function() {
     // the primary category is the first in the list, the secondary is the second.
     primaryCategory = tuples[0][0]
 
+    // if there is a four-way tie
+    if (tuples[0][1] === 2){
+        primaryCategory = 'all';
+        secondaryCategory = primaryCategory;
+    }
     // if answers are all one category
-    if (tuples[1][1] < 1) {
+    else if (tuples[1][1] < 1) {
         secondaryCategory = primaryCategory;
     }
     else {
