@@ -1,7 +1,6 @@
 // Global jQuery references
 var $shareModal = null;
 var $commentCount = null;
-var $submitQuiz = null;
 var $questions = null;
 var $results = null;
 var $topGames = null
@@ -50,7 +49,6 @@ var onDocumentLoad = function(e) {
     $answers = $('.answer');
 
     // Bind events
-    $submitQuiz.on('click', calculateResult);
     $resetQuiz.on('click', resetQuiz);
     $answers.on('change', checkQuizCompletion);
 }
@@ -82,8 +80,7 @@ var checkQuizCompletion = function(el) {
     }
 
     if (answersChecked == $questions.length) {
-        $submitQuiz.removeAttr("disabled");
-        pymChild.sendMessage('scrollTo', $submitQuiz.offset().top);
+        calculateResult();
     } else {
         pymChild.sendMessage('scrollTo', $next.offset().top);
     }
@@ -125,7 +122,6 @@ var calculateResult = function() {
 
     // get both our first and second choice
     renderResults(secondaryCategory, primaryCategory, $topGames);
-    renderGameList(secondaryCategory, primaryCategory, $allGames);
 }
 
 var findAnswer = function(question) {
@@ -154,13 +150,25 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
         'secondaryCategory': COPY['category_mapper'][secondaryCategory].toLowerCase()
     }
 
-    $submitQuiz.hide();
-    $results.show();
+
     var html = JST.result(context);
     $el.html(html);
 
-    pymChild.sendHeight();
-    pymChild.sendMessage('scrollTo', $results.offset().top);
+    renderGameList(secondaryCategory, primaryCategory, $allGames);
+
+    $submitQuiz.slideUp();
+    $results.slideDown({
+        duration: 500,
+        start: function(){
+            pymChild.sendMessage('scrollTo', $results.offset().top);
+        },
+        step: function(){
+            pymChild.sendHeight();
+        },
+        complete: function(){
+            pymChild.sendHeight();
+        }
+    });
 }
 
 var renderGameList = function(primaryCategory, secondaryCategory, $el) {
@@ -195,8 +203,6 @@ var renderGameList = function(primaryCategory, secondaryCategory, $el) {
 
     var html = JST.game_list(context);
     $el.html(html);
-
-    pymChild.sendHeight();
 }
 
 /*
@@ -213,12 +219,19 @@ var resetQuiz = function(){
             .prop('disabled',false)
             .on('click', checkQuizCompletion);
 
-    // Hide results, show the quiz submit button
-    $results.hide();
-    $submitQuiz.show();
-
-    pymChild.sendHeight();
     pymChild.sendMessage('scrollTo', 0);
+
+    // Hide results, show the quiz submit button
+    $submitQuiz.slideDown();
+    $results.slideUp({
+        duration: 500,
+        step: function(){
+            pymChild.sendHeight();
+        },
+        complete: function(){
+            pymChild.sendHeight();
+        }
+    });
 }
 
 $(onDocumentLoad);
