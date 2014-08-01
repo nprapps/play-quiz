@@ -52,7 +52,7 @@ var onDocumentLoad = function(e) {
     // Bind events
     $submitQuiz.on('click', calculateResult);
     $resetQuiz.on('click', resetQuiz);
-    $answers.on('click', checkQuizCompletion);
+    $answers.on('change', checkQuizCompletion);
 }
 
 var renderChoices = function(index, el) {
@@ -112,7 +112,7 @@ var calculateResult = function() {
 
     // if there is a four-way tie
     if (tuples[0][1] === 2){
-        primaryCategory = 'all';
+        primaryCategory = 'everything';
         secondaryCategory = primaryCategory;
     }
     // if answers are all one category
