@@ -1,20 +1,20 @@
 <% _.each(choices, function(choice) { %>
-    <div class="choice">
-    	<% if (choice['youtube_id']) { %>
-        <div class="media-wrapper">
-        	<div class="video-wrapper">
-        	    <iframe width="100%" height="100%" src="//youtube.com/embed/<%= choice['youtube_id'] %>?autohide=1" frameborder="0" allowfullscreen></iframe>
-        	</div>
-        </div>
-    	<% } %>
-
-    	<% if (choice['photo']) { %>
-        <div class="media-wrapper">
-        	<img class="img-responsive" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= choice['photo'] %>">
-        </div>
-    	<% } %>
+    <div class="choice<% if (!choice['text']){ %> no-text<% } %>">
         <div class="radio">
             <label>
+                <% if (choice['youtube_id']) { %>
+                <div class="media-wrapper">
+                    <div class="video-wrapper">
+                        <iframe width="100%" height="100%" src="//youtube.com/embed/<%= choice['youtube_id'] %>?autohide=1" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <% } %>
+
+                <% if (choice['photo']) { %>
+                <div class="media-wrapper">
+                    <img class="img-responsive" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= choice['photo'] %>">
+                </div>
+                <% } %>
                 <input class="choice-radio" type="radio" name="<%= questionKey %>" value="<%=choice['category'] %>">
                 <span class="label-text"><%= choice['text'] %></span>
             </label>

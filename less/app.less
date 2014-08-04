@@ -147,7 +147,7 @@ a.btn.btn-blue {
 		.square(44px);
 		.img-circle;
 		position: absolute;
-		top: 0;
+		bottom: 0;
 		left: 0;
 		float: none;
 		margin: 0;
@@ -160,7 +160,7 @@ a.btn.btn-blue {
 
 		+ span:before {
 			position: absolute;
-			top: 0;
+			bottom: 0;
 			left: 0;
 			z-index: 5;
 			opacity: 1;
@@ -205,6 +205,16 @@ a.btn.btn-blue {
 	input[type="radio"]:checked + span:before {
 		border-color: @primary-control;
 		background: @primary-control;
+	}
+
+	.no-text & {
+		.label-text {
+			display: block;
+			height: 0;
+			min-height: 0;
+			overflow: hidden;
+			padding: 0;
+		}
 	}
 }
 
@@ -289,7 +299,7 @@ a.btn.btn-blue {
 }
 
 .media-wrapper {
-	margin-left: 54px;
+	// margin-left: 54px;
 }
 
 // Header
