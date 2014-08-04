@@ -166,6 +166,14 @@ a.btn.btn-blue {
 			border: 3px solid lighten(@gray-light, 20%);
 			cursor: pointer;
 		}
+
+		&[disabled] {
+			display: none;
+
+			&:checked {
+				display: block;
+			}
+		}
 	}
 
 	input[type="radio"] {
