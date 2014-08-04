@@ -12,7 +12,7 @@ var firstShareLoad = true;
 var category = null;
 var primaryCategory = null;
 var secondaryCategory = null;
-var answersChecked = 0;
+var choicesChecked = 0;
 
 var categories = {
     'creativity': 0,
@@ -46,11 +46,11 @@ var onDocumentLoad = function(e) {
     pymChild.sendHeight();
 
     // Cache answers lookup after they're rendered
-    $answers = $('.answer');
+    $choices = $('input.choice-radio');
 
     // Bind events
     $resetQuiz.on('click', resetQuiz);
-    $answers.on('change', checkQuizCompletion);
+    $choices.on('change', checkQuizCompletion);
 }
 
 var renderChoices = function(index, el) {
@@ -72,32 +72,29 @@ var renderChoices = function(index, el) {
 }
 
 var checkQuizCompletion = function(el) {
-    answersChecked = 0;
+    choicesChecked = 0;
     var $next = $(this).parents('.question').next();
 
-    for (i = 0; i < $questions.length; i++) {
-        findAnswer($questions[i])
-    }
+    $questions.each(findAnswer);
 
-    if (answersChecked == $questions.length) {
+    if (choicesChecked == $questions.length) {
         calculateResult();
     } else {
         pymChild.sendMessage('scrollTo', $next.offset().top);
     }
-
 }
 
 var calculateResult = function() {
-    answersChecked = 0;
+    choicesChecked = 0;
 
-    $answers.prop('disabled',true)
-            .off('click');
+    $choices.prop('disabled',true);
+            // .off('change', "**");
 
-    for (i=0; i<$questions.length; i++) {
-        findAnswer($questions[i]);
+    _.each($questions, function(element, index) {
+        findAnswer(element);
 
         categories[category]++;
-    };
+    });
 
     var tuples = _.pairs(categories);
 
@@ -124,13 +121,13 @@ var calculateResult = function() {
     renderResults(secondaryCategory, primaryCategory, $topGames);
 }
 
-var findAnswer = function(question) {
-    var $answers = $(question).find('.answer');
+var findAnswer = function(index, element) {
+    var $questionChoices = $(element).find('.choice-radio');
 
-    _.each($answers, function(answer) {
-        if ($(answer).is(':checked')) {
-            category = $(answer).attr('value');
-            answersChecked++;
+    _.each($questionChoices, function(choice) {
+        if ($(choice).is(':checked')) {
+            category = $(choice).attr('value');
+            choicesChecked++;
         }
     });
 }
@@ -156,13 +153,13 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
 
     renderGameList(secondaryCategory, primaryCategory, $allGames);
 
-    $submitQuiz.slideUp();
-    $results.slideDown({
+    $submitQuiz.velocity('slideUp');
+    $results.velocity('slideDown', {
         duration: 500,
-        start: function(){
-            pymChild.sendMessage('scrollTo', $results.offset().top);
+        begin: function(){
+            pymChild.sendMessage('scrollTo', $('body').height());
         },
-        step: function(){
+        progress: function(){
             pymChild.sendHeight();
         },
         complete: function(){
@@ -215,17 +212,17 @@ var resetQuiz = function(){
     });
 
     // Reset radio button and rebind events
-    $answers.prop('checked', false)
-            .prop('disabled',false)
-            .on('click', checkQuizCompletion);
+    $choices.prop('checked', false)
+            .prop('disabled',false);
+            // .on('click', checkQuizCompletion);
 
     pymChild.sendMessage('scrollTo', 0);
 
     // Hide results, show the quiz submit button
-    $submitQuiz.slideDown();
-    $results.slideUp({
+    $submitQuiz.velocity('slideDown');
+    $results.velocity('slideUp', {
         duration: 500,
-        step: function(){
+        progress: function(){
             pymChild.sendHeight();
         },
         complete: function(){

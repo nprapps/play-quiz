@@ -1,5 +1,5 @@
 <% _.each(choices, function(choice) { %>
-    <div class="answer">
+    <div class="choice">
     	<% if (choice['youtube_id']) { %>
         <div class="media-wrapper">
         	<div class="video-wrapper">
@@ -15,7 +15,7 @@
     	<% } %>
         <div class="radio">
             <label>
-                <input class="answer" type="radio" name="<%= questionKey %>" value="<%=choice['category'] %>">
+                <input class="choice-radio" type="radio" name="<%= questionKey %>" value="<%=choice['category'] %>">
                 <span class="label-text"><%= choice['text'] %></span>
             </label>
         </div>
