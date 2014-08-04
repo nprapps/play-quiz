@@ -132,6 +132,7 @@ a.btn.btn-blue {
 	label {
 		display: block;
 		background: @gray-lighter;
+		cursor: pointer;
 	}
 
 	.label-text {
@@ -151,14 +152,18 @@ a.btn.btn-blue {
 		float: none;
 		margin: 0;
 		border: none;
+		opacity: 0;
+		z-index: 10;
+		cursor: pointer;
 		background: transparent;
 		-webkit-appearance: none;
 
-		&:before {
+		+ span:before {
 			position: absolute;
 			top: 0;
 			left: 0;
-			z-index: 10;
+			z-index: 5;
+			opacity: 1;
 			content: ' ';
 			.square(44px);
 			.img-circle;
@@ -167,12 +172,12 @@ a.btn.btn-blue {
 			cursor: pointer;
 		}
 
-		&[disabled] {
+		&[disabled] + span:before {
 			display: none;
+		}
 
-			&:checked {
-				display: block;
-			}
+		&[disabled]:checked + span:before {
+			display: block;
 		}
 	}
 
@@ -182,7 +187,7 @@ a.btn.btn-blue {
 
 	input[type="radio"]:checked,
 	input[type="radio"]:hover {
-		&:before {
+		+ span:before {
 			background: lighten(@gray-light, 20%);
 			font-family: FontAwesome;
 			font-weight: normal;
@@ -197,7 +202,7 @@ a.btn.btn-blue {
 		}
 	}
 
-	input[type="radio"]:checked:before {
+	input[type="radio"]:checked + span:before {
 		border-color: @primary-control;
 		background: @primary-control;
 	}
