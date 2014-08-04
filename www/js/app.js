@@ -153,13 +153,13 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
 
     renderGameList(secondaryCategory, primaryCategory, $allGames);
 
-    $submitQuiz.velocity('slideUp');
-    $results.velocity('slideDown', {
+    $submitQuiz.slideUp();
+    $results.slideDown({
         duration: 500,
-        begin: function(){
+        start: function(){
             pymChild.sendMessage('scrollTo', $('body').height());
         },
-        progress: function(){
+        step: function(){
             pymChild.sendHeight();
         },
         complete: function(){
@@ -219,8 +219,8 @@ var resetQuiz = function(){
     pymChild.sendMessage('scrollTo', 0);
 
     // Hide results, show the quiz submit button
-    $submitQuiz.velocity('slideDown');
-    $results.velocity('slideUp', {
+    $submitQuiz.slideDown();
+    $results.slideUp({
         duration: 500,
         progress: function(){
             pymChild.sendHeight();
