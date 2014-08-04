@@ -222,7 +222,7 @@ var resetQuiz = function(){
     $submitQuiz.slideDown();
     $results.slideUp({
         duration: 500,
-        progress: function(){
+        step: function(){
             pymChild.sendHeight();
         },
         complete: function(){
