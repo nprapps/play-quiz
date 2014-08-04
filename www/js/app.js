@@ -157,7 +157,7 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
     $results.slideDown({
         duration: 500,
         start: function(){
-            pymChild.sendMessage('scrollTo', $('body').height());
+            pymChild.sendMessage('scrollTo', $results.offset().top);
         },
         step: function(){
             pymChild.sendHeight();
