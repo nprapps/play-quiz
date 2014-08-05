@@ -1,5 +1,5 @@
 <% _.each(choices, function(choice) { %>
-    <div class="choice<% if (!choice['text']){ %> no-text<% } %>">
+    <div class="choice<% if (!choice['text']){ %> no-text<% } %><% if (choice['book_cover']) { %> has-book-cover<% } %>">
         <div class="radio">
             <label>
                 <% if (choice['youtube_id']) { %>
@@ -16,7 +16,7 @@
                 </div>
                 <% } %>
                 <input class="choice-radio" type="radio" name="<%= questionKey %>" value="<%=choice['category'] %>">
-                <span class="label-text"><%= choice['text'] %></span>
+                <span class="label-text"><% if (choice['book_cover']) { %><img class="book-cover" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= choice['book_cover'] %>"><% } %><%= choice['text'] %></span>
             </label>
         </div>
     </div>

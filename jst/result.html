@@ -1,5 +1,9 @@
 <h4>We think you&rsquo;re interested in <strong><%= primaryCategory %></strong><% if (firstResult !== secondResult){ %> and <strong><%= secondaryCategory %></strong><% }; %>.</h4>
 
+<% if (firstResult['image']) { %>
+<img class="suggestion-img" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= firstResult['image'] %>">
+<% }; %>
+
 <p><%= firstResult['description'] %></p>
 
 <% if (firstResult !== secondResult){ %>

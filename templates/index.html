@@ -15,11 +15,16 @@
             </div>
             {% endfor %}
 
+
             <div class="results">
 
                 <div class="top-games"></div>
 
+                {{ COPY.content.suggestion_explainer|safe|smarty }}
+
                 <button class="btn btn-primary btn-lg reset-quiz">Play again</button>
+
+                <h4>{{ COPY.content.full_list_intro|safe|smarty }}</h4>
 
                 <div class="all-games"></div>
             </div>

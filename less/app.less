@@ -139,6 +139,12 @@ a.btn.btn-blue {
 		display: inline-block;
 		padding: 10px;
 		min-height: 44px;
+
+		.book-cover {
+			width: 100px;
+			.pull-left;
+			margin-right: @grid-gutter-width;
+		}
 	}
 
 
@@ -178,6 +184,16 @@ a.btn.btn-blue {
 
 		&[disabled]:checked + span:before {
 			display: block;
+		}
+
+		.has-book-cover & {
+			bottom: auto;
+			top: 0;
+
+			+ span:before {
+				bottom: auto;
+				top: 0;
+			}
 		}
 	}
 
@@ -229,13 +245,18 @@ a.btn.btn-blue {
 		line-height: @line-height-base;
 	}
 
+	.suggestion-img {
+		.img-responsive;
+		display: block;
+		margin-bottom: @line-height-computed
+	}
+
 	.reset-quiz {
-		margin-top: @line-height-computed;
+		margin: @line-height-computed 0;
 	}
 }
 
 .all-games {
-	padding-top: @line-height-computed;
 	margin-top: @line-height-computed;
 
 	h4 {
