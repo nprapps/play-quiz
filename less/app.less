@@ -245,10 +245,21 @@ a.btn.btn-blue {
 		line-height: @line-height-base;
 	}
 
+	.top-games h4 {
+		margin-bottom: @line-height-computed;
+	}
+
 	.suggestion-img {
 		.img-responsive;
 		display: block;
-		margin-bottom: @line-height-computed
+	}
+
+	.credit {
+		font-size: @font-size-base * 0.6875;
+		color: #999;
+		text-align: right;
+		margin-top: 5px;
+		margin-bottom: @line-height-computed;
 	}
 
 	.reset-quiz {
@@ -264,9 +275,8 @@ a.btn.btn-blue {
 		margin-bottom: 0;
 	}
 
-	p {
+	p.secondary-category {
 		color: @gray-light;
-		text-transform: uppercase;
 		font-size: @font-size-base * 0.75;
 	}
 }
@@ -320,7 +330,18 @@ a.btn.btn-blue {
 }
 
 .media-wrapper {
-	// margin-left: 54px;
+	position: relative;
+
+	.credit {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		background: rgba(0,0,0,0.7);
+		color: #999;
+		font-size: @font-size-base * 0.6875;
+		margin-bottom: 0;
+		padding: 5px;
+	}
 }
 
 // Header

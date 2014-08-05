@@ -6,7 +6,8 @@
 		<% _.each(category, function(game){ %>
 			<li>
 				<h4><%= game['game'] %></h4>
-				<% if (game['primary'] !== game['secondary']){ %><p><%= game['secondaryLabel'] %></p><% } %>
+				<% if (game['primary'] !== game['secondary']){ %><p class="secondary-category"><%= game['secondaryLabel'] %></p><% } %>
+				<p class="description"><%= game['description'] %></p>
 			</li>
 		<% }); %>
 		</ul>

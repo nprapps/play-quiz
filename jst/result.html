@@ -2,6 +2,9 @@
 
 <% if (firstResult['image']) { %>
 <img class="suggestion-img" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= firstResult['image'] %>">
+    <% if (firstResult['image_credit']) { %>
+    <p class="credit"><%= firstResult['image_credit'] %></p>
+    <% }; %>
 <% }; %>
 
 <p><%= firstResult['description'] %></p>

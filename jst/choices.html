@@ -13,6 +13,10 @@
                 <% if (choice['photo']) { %>
                 <div class="media-wrapper">
                     <img class="img-responsive" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= choice['photo'] %>">
+
+                    <% if (choice['photo_credit']) { %>
+                        <p class="credit"><%= choice['photo_credit'] %></p>
+                    <% }; %>
                 </div>
                 <% } %>
                 <input class="choice-radio" type="radio" name="<%= questionKey %>" value="<%=choice['category'] %>">
