@@ -5,6 +5,12 @@
 		<ul>
 		<% _.each(category, function(game){ %>
 			<li>
+				<% if (game['image']) { %>
+				<img class="suggestion-img" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= game['image'] %>">
+				    <% if (game['image_credit']) { %>
+				    <p class="credit"><%= game['image_credit'] %></p>
+				    <% }; %>
+				<% }; %>
 				<h4><%= game['game'] %></h4>
 				<% if (game['primary'] !== game['secondary']){ %><p class="secondary-category"><%= game['secondaryLabel'] %></p><% } %>
 				<p class="description"><%= game['description'] %></p>
@@ -20,7 +26,14 @@
 	<h2><%= games['everything'][0]['primaryLabel'] %></h2>
 	<ul>
 		<li>
+			<% if (games['everything'][0]['image']) { %>
+			<img class="suggestion-img" src="<%= APP_CONFIG.S3_BASE_URL %>/assets/img/<%= games['everything'][0]['image'] %>">
+			    <% if (games['everything'][0]['image_credit']) { %>
+			    <p class="credit"><%= games['everything'][0]['image_credit'] %></p>
+			    <% }; %>
+			<% }; %>
 			<h4><%= games['everything'][0]['game'] %></h4>
+			<p class="description"><%= games['everything'][0]['description'] %></p>
 		</li>
 	</ul>
 </div>

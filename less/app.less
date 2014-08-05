@@ -259,11 +259,13 @@ a.btn.btn-blue {
 		color: #999;
 		text-align: right;
 		margin-top: 5px;
-		margin-bottom: @line-height-computed;
+		margin-bottom: @line-height-computed / 2;
 	}
 
 	.reset-quiz {
-		margin: @line-height-computed 0;
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
 	}
 }
 
@@ -275,10 +277,22 @@ a.btn.btn-blue {
 		margin-bottom: 0;
 	}
 
+	p.description {
+		font-size: @font-size-small;
+	}
+
 	p.secondary-category {
 		color: @gray-light;
 		font-size: @font-size-base * 0.75;
+		text-transform: uppercase;
 	}
+}
+
+.top-games + p + h4 {
+	font-size: @font-size-base;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-top: @line-height-computed * 2;
 }
 
 .category {
@@ -294,23 +308,14 @@ a.btn.btn-blue {
 		text-transform: uppercase;
 	}
 
-	h4 {
-		font-size: @font-size-base;
-	}
-
-	// &.physical-exploration { border-top: 10px solid @teal3; }
-	// &.pleasure-fun         { border-top: 10px solid @yellow3; }
-	// &.social-connection    { border-top: 10px solid @blue3; }
-	// &.mental-stimulation   { border-top: 10px solid @red3; }
-	// &.creativity           { border-top: 10px solid @orange3; }
-
 	ul {
+		.list-unstyled;
 		font-size: @font-size-base * 1.125;
-		padding: 0 @line-height-computed @line-height-computed / 2 @line-height-computed * 2;
+		padding: @grid-gutter-width * 2;
 	}
 
 	li {
-		margin-bottom: @line-height-computed / 2;
+		margin-bottom: @line-height-computed;
 	}
 }
 

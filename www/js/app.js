@@ -9,7 +9,7 @@ var $answers = null;
 
 // Global state
 var firstShareLoad = true;
-var category = null;
+// var category = null;
 var primaryCategory = null;
 var secondaryCategory = null;
 var choicesChecked = 0;
@@ -88,11 +88,9 @@ var calculateResult = function() {
     choicesChecked = 0;
 
     $choices.prop('disabled',true);
-            // .off('change', "**");
 
-    _.each($questions, function(element, index) {
-        findAnswer(element);
-
+    $questions.find('input:checked').each(function(index, element){
+        var category = $(element).attr('value');
         categories[category]++;
     });
 
@@ -124,9 +122,9 @@ var calculateResult = function() {
 var findAnswer = function(index, element) {
     var $questionChoices = $(element).find('.choice-radio');
 
-    _.each($questionChoices, function(choice) {
-        if ($(choice).is(':checked')) {
-            category = $(choice).attr('value');
+    $questionChoices.each(function(index, element) {
+        if ($(element).is(':checked')) {
+            // category = $(element).attr('value');
             choicesChecked++;
         }
     });
