@@ -1,3 +1,6 @@
+// Global vars
+var EVENT_CATEGORY = 'Play Quiz';
+
 // Global jQuery references
 var $shareModal = null;
 var $commentCount = null;
@@ -71,9 +74,10 @@ var renderChoices = function(index, el) {
     });
 }
 
-var checkQuizCompletion = function(el) {
+var checkQuizCompletion = function(e) {
     choicesChecked = 0;
     var $next = $(this).parents('.question').next();
+    var questionNumber = $(this).attr('name').split('_').pop();
 
     $questions.each(findAnswer);
 
@@ -82,6 +86,10 @@ var checkQuizCompletion = function(el) {
     } else {
         pymChild.sendMessage('scrollTo', $next.offset().top);
     }
+
+    trackQuizStart();
+
+    _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Answered Question ' + questionNumber]);
 }
 
 var calculateResult = function() {
@@ -117,6 +125,8 @@ var calculateResult = function() {
 
     // get both our first and second choice
     renderResults(secondaryCategory, primaryCategory, $topGames);
+
+    _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Finish Quiz']);
 }
 
 var findAnswer = function(index, element) {
@@ -227,6 +237,12 @@ var resetQuiz = function(){
             pymChild.sendHeight();
         }
     });
+
+    _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Reset Quiz']);
 }
+
+var trackQuizStart = _.once(function(){
+    _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Start Quiz']);
+});
 
 $(onDocumentLoad);

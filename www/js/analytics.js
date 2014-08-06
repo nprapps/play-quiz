@@ -48,7 +48,7 @@ if ('ontouchstart' in document.documentElement) {
     _gaq.push(['_setCustomVar', 11, 'Touch screens', 'Traditional', 2]);
 }
 
-_gaq.push(['_trackPageview']);
+// _gaq.push(['_trackPageview']);
 
 (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -74,7 +74,7 @@ _comscore.push({ c1: "2", c2: "17691522" });
     var d = new Image(1, 1);
     d.onerror = d.onload = function () { d.onerror = d.onload = null; };
     d.src = ["//secure-us.imrworldwide.com/cgi-bin/m?ci=us-803244h&cg=0&cc=1&si=", escape(window.location.href), "&rp=", escape(document.referrer), "&ts=compact&rnd=", (new Date()).getTime()].join('');
-})();   
+})();
 
 /*
  * Chartbeat
