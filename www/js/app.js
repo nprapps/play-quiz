@@ -161,7 +161,7 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
 
     renderGameList(secondaryCategory, primaryCategory, $allGames);
 
-    $results.find('a').attr('target', '_parent');
+    $results.find('a').attr('target', '_blank');
 
     $submitQuiz.slideUp();
     $results.slideDown({
