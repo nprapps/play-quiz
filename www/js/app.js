@@ -125,6 +125,7 @@ var calculateResult = function() {
 
     // get both our first and second choice
     renderResults(secondaryCategory, primaryCategory, $topGames);
+    pymChild.sendHeight();
 
     _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Finish Quiz']);
 }
@@ -163,7 +164,6 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
 
     $results.find('a').attr('target', '_blank');
 
-    $submitQuiz.slideUp();
     $results.slideDown({
         duration: 500,
         start: function(){
@@ -229,7 +229,6 @@ var resetQuiz = function(){
     pymChild.sendMessage('scrollTo', 0);
 
     // Hide results, show the quiz submit button
-    $submitQuiz.slideDown();
     $results.slideUp({
         duration: 500,
         step: function(){
