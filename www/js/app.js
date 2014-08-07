@@ -125,7 +125,10 @@ var calculateResult = function() {
 
     // get both our first and second choice
     renderResults(secondaryCategory, primaryCategory, $topGames);
-    pymChild.sendHeight();
+
+    _.defer(function(){
+        pymChild.sendHeight();
+    })
 
     _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Finish Quiz']);
 }
