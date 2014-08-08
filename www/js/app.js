@@ -126,10 +126,6 @@ var calculateResult = function() {
     // get both our first and second choice
     renderResults(secondaryCategory, primaryCategory, $topGames);
 
-    _.defer(function(){
-        pymChild.sendHeight();
-    })
-
     _gaq.push(['_trackEvent', EVENT_CATEGORY, 'Finish Quiz']);
 }
 
@@ -159,13 +155,15 @@ var renderResults = function(primaryCategory, secondaryCategory, $el) {
         'secondaryCategory': COPY['category_mapper'][secondaryCategory].toLowerCase()
     }
 
-
     var html = JST.result(context);
     $el.html(html);
 
     renderGameList(secondaryCategory, primaryCategory, $allGames);
 
     $results.find('a').attr('target', '_blank');
+    $results.find('img').load(function(){
+        pymChild.sendHeight();
+    });
 
     $results.slideDown({
         duration: 500,
